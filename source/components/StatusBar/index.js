@@ -11,10 +11,14 @@ export default class StatusBar extends Component {
             <section className = { Styles.statusBar }>
                 <button>
                     <img src = { avatar } />
-                    <span>{`${currentUserFirstName}`}</span>
+                    <span>
+                        {`${currentUserFirstName}`}
+                    </span>
                     &nbsp;
-                    <span>{`${currentUserLastName}`}</span>
-                    </button>
+                    <span>
+                        {`${currentUserLastName}`}
+                    </span>
+                </button>
             </section>
         );
     }
