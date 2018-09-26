@@ -15,13 +15,13 @@ export default class Post extends Component {
                     <section className = { Styles.post }>
                         <img src = { context.avatar } />
                         <a>
-                            {`${context.currentUserFirstName} ${context.currentUserLastName}`}
+                            { `${context.currentUserFirstName} ${context.currentUserLastName}` }
                         </a>
                         <time>
-                            {moment().format('MMMM D h:mm:ss a')}
+                            { moment().format('MMMM D h:mm:ss a') }
                         </time>
                         <p>
-                            {`Hello!`}
+                            { `Hello!` }
                         </p>
                     </section>
                 )}

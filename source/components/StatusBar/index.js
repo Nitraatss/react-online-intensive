@@ -15,11 +15,11 @@ export default class StatusBar extends Component {
                         <button>
                             <img src = { context.avatar } />
                             <span>
-                                {`${context.currentUserFirstName}`}
+                                { `${context.currentUserFirstName}` }
                             </span>
                             &nbsp;
                             <span>
-                                {`${context.currentUserLastName}`}
+                                { `${context.currentUserLastName}` }
                             </span>
                         </button>
                     </section>
