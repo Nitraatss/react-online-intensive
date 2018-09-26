@@ -21,7 +21,7 @@ export default class Post extends Component {
                             { moment().format('MMMM D h:mm:ss a') }
                         </time>
                         <p>
-                            { `Hello!` }
+                            Hello!
                         </p>
                     </section>
                 )}
