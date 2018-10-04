@@ -10,13 +10,14 @@ import Spinner from "components/Spinner";
 
 //Instruments
 import Styles from "./styles.m.css";
-import { getUniqueID } from "instruments";
+import { getUniqueID, delay } from "instruments";
 
 export default class Feed extends Component {
     constructor () {
         super();
 
         this._createPost = this._createPost.bind(this);
+        this._changeSpinnerState = this._changeSpinnerState.bind(this);
     }
 
     state = {
@@ -35,16 +36,28 @@ export default class Feed extends Component {
         ],
     };
 
-    _createPost (comment) {
+    _changeSpinnerState (state) {
+      this.setState({
+        spinnerState: state,
+      });
+    }
+
+    async _createPost (comment) {
+        this._changeSpinnerState(true);
+
         const post = {
             id:      getUniqueID(),
             created: moment.now(),
             comment,
         };
 
+        await delay(1200);
+
         this.setState(({ posts }) => ({
             posts: [post, ...posts],
         }));
+
+        this._changeSpinnerState(false);
     }
 
     render () {
