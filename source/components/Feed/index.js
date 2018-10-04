@@ -18,6 +18,7 @@ export default class Feed extends Component {
 
         this._createPost = this._createPost.bind(this);
         this._changeSpinnerState = this._changeSpinnerState.bind(this);
+        this._likePost = this._likePost.bind(this);
     }
 
     state = {
@@ -27,19 +28,21 @@ export default class Feed extends Component {
                 id:      "123",
                 comment: "Hello there!",
                 created: 1538471201,
+                likes:   [],
             },
             {
                 id:      "456",
                 comment: "General Kenobi...",
                 created: 1538471222,
+                likes:   [],
             }
         ],
     };
 
     _changeSpinnerState (state) {
-      this.setState({
-        spinnerState: state,
-      });
+        this.setState({
+            spinnerState: state,
+        });
     }
 
     async _createPost (comment) {
@@ -60,12 +63,42 @@ export default class Feed extends Component {
         this._changeSpinnerState(false);
     }
 
+    async _likePost (id) {
+        const { currentUserFirstName, currentUserLastName } = this.props;
+
+        this._changeSpinnerState(true);
+
+        await delay(1200);
+
+        const newPosts = this.state.posts.map((post) => {
+            if (post.id === id) {
+                return {
+                    ...post,
+                    likes: [
+                        {
+                            id:        getUniqueID(),
+                            firstName: currentUserFirstName,
+                            lastName:  currentUserLastName,
+                        }
+                    ],
+                };
+            }
+
+            return post;
+        });
+
+        this.setState({
+            posts: newPosts,
+        });
+
+        this._changeSpinnerState(false);
+    }
+
     render () {
-        const posts = this.state.posts;
-        const spinnerState = this.state.spinnerState;
+        const { posts, spinnerState } = this.state;
 
         const postsJSX = posts.map((post) => {
-            return <Post { ...post } />;
+            return <Post key = { post.id } { ...post } _likePost = { this._likePost } />;
         });
 
         return (
