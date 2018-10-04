@@ -19,6 +19,7 @@ export default class Feed extends Component {
         this._createPost = this._createPost.bind(this);
         this._changeSpinnerState = this._changeSpinnerState.bind(this);
         this._likePost = this._likePost.bind(this);
+        this._deletePost = this._deletePost.bind(this);
     }
 
     state = {
@@ -43,6 +44,28 @@ export default class Feed extends Component {
         this.setState({
             spinnerState: state,
         });
+    }
+
+    async _deletePost (id) {
+        this._changeSpinnerState(true);
+
+        await delay(1200);
+
+        const updatedPosts = this.state.posts;
+
+        const deletablePostIndex = updatedPosts.findIndex((post) => {
+            return post.id === id;
+        });
+
+        if (deletablePostIndex > -1) {
+            updatedPosts.splice(deletablePostIndex, 1);
+
+            this.setState({
+                posts: updatedPosts,
+            });
+        }
+
+        this._changeSpinnerState(false);
     }
 
     async _createPost (comment) {
@@ -99,7 +122,14 @@ export default class Feed extends Component {
         const { posts, spinnerState } = this.state;
 
         const postsJSX = posts.map((post) => {
-            return <Post key = { post.id } { ...post } _likePost = { this._likePost } />;
+            return (
+                <Post
+                    key = { post.id }
+                    { ...post }
+                    _deletePost = { this._deletePost }
+                    _likePost = { this._likePost }
+                />
+            );
         });
 
         return (

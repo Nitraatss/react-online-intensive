@@ -1,7 +1,7 @@
 //Core
 import React, { Component } from "react";
 import moment from "moment";
-import PropTypes from "prop-types";
+import { string, number, func, array } from "prop-types";
 
 //Components
 import Like from "components/Like";
@@ -12,12 +12,25 @@ import Styles from "./styles.m.css";
 
 export default class Post extends Component {
     static propTypes = {
-        comment:   PropTypes.string.isRequired,
-        created:   PropTypes.number.isRequired,
-        _likePost: PropTypes.func.isRequired,
-        likes:     PropTypes.array.isRequired,
-        id:        PropTypes.string.isRequired,
+        comment:     string.isRequired,
+        created:     number.isRequired,
+        _likePost:   func.isRequired,
+        _deletePost: func.isRequired,
+        likes:       array.isRequired,
+        id:          string.isRequired,
     };
+
+    constructor () {
+        super();
+
+        this._deletePost = this._deletePost.bind(this);
+    }
+
+    _deletePost () {
+        const { _deletePost, id } = this.props;
+
+        _deletePost(id);
+    }
 
     render () {
         const { comment, created, _likePost, id, likes } = this.props;
@@ -26,7 +39,10 @@ export default class Post extends Component {
             <Consumer>
                 {(context) => (
                     <section className = { Styles.post }>
-                        <span className = { Styles.cross } />
+                        <span
+                            className = { Styles.cross }
+                            onClick = { this._deletePost }
+                        />
                         <img src = { context.avatar } />
                         <a>
                             {`${context.currentUserFirstName} ${
