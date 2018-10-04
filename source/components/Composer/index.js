@@ -1,12 +1,12 @@
 //Core
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 // Components
-import { Consumer } from 'components/HOC/withProfile';
+import { Consumer } from "components/HOC/withProfile";
 
 //Instruments
-import Styles from './styles.m.css';
+import Styles from "./styles.m.css";
 
 export default class Composer extends Component {
     static propTypes = {
@@ -23,16 +23,16 @@ export default class Composer extends Component {
     }
 
     state = {
-        comment: '',
+        comment: "",
     };
 
     _updateComment (event) {
         this.setState({
-            comment: event.target.value
+            comment: event.target.value,
         });
     }
 
-    _handleFormSubmit(event) {
+    _handleFormSubmit (event) {
         event.preventDefault();
         this._submitComment();
     }
@@ -47,12 +47,12 @@ export default class Composer extends Component {
         this.props._createPost(comment);
 
         this.setState({
-            comment: '',
+            comment: "",
         });
     }
 
     _submitOnEnter (event) {
-        const enterKey = event.key === 'Enter';
+        const enterKey = event.key === "Enter";
 
         if (enterKey) {
             event.preventDefault();
@@ -70,7 +70,14 @@ export default class Composer extends Component {
                     <section className = { Styles.composer }>
                         <img src = { context.avatar } />
                         <form onSubmit = { this._handleFormSubmit }>
-                            <textarea placeholder = { `Whats on your mind, ${context.currentUserFirstName}?` } value = { comment } onChange = { this._updateComment } onKeyPress = { this._submitOnEnter } />
+                            <textarea
+                                placeholder = { `Whats on your mind, ${
+                                    context.currentUserFirstName
+                                }?` }
+                                value = { comment }
+                                onChange = { this._updateComment }
+                                onKeyPress = { this._submitOnEnter }
+                            />
                             <input type = 'submit' value = 'Post' />
                         </form>
                     </section>

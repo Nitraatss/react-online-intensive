@@ -1,16 +1,16 @@
 //Core
-import React, { Component } from 'react';
-import moment from 'moment';
+import React, { Component } from "react";
+import moment from "moment";
 
 // Components
-import Composer from 'components/Composer';
-import Post from 'components/Post';
-import StatusBar from 'components/StatusBar';
-import Spinner from 'components/Spinner';
+import Composer from "components/Composer";
+import Post from "components/Post";
+import StatusBar from "components/StatusBar";
+import Spinner from "components/Spinner";
 
 //Instruments
-import Styles from './styles.m.css';
-import { getUniqueID } from 'instruments';
+import Styles from "./styles.m.css";
+import { getUniqueID } from "instruments";
 
 export default class Feed extends Component {
     constructor () {
@@ -21,23 +21,23 @@ export default class Feed extends Component {
 
     state = {
         spinnerState: false,
-        posts: [
+        posts:        [
             {
-                id: '123',
-                comment: 'Hello there!',
-                created: 1538471201
+                id:      "123",
+                comment: "Hello there!",
+                created: 1538471201,
             },
             {
-                id: '456',
-                comment: 'General Kenobi...',
-                created: 1538471222
+                id:      "456",
+                comment: "General Kenobi...",
+                created: 1538471222,
             }
-        ]
-    }
+        ],
+    };
 
     _createPost (comment) {
         const post = {
-            id: getUniqueID(),
+            id:      getUniqueID(),
             created: moment.now(),
             comment,
         };
@@ -52,7 +52,7 @@ export default class Feed extends Component {
         const spinnerState = this.state.spinnerState;
 
         const postsJSX = posts.map((post) => {
-            return <Post { ...post } />
+            return <Post { ...post } />;
         });
 
         return (
