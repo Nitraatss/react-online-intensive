@@ -2,9 +2,11 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
+
 //Components
 import { Consumer } from 'components/HOC/withProfile';
 
+//Instruments
 import Styles from './styles.m.css';
 
 export default class Post extends Component {
