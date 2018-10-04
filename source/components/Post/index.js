@@ -26,6 +26,7 @@ export default class Post extends Component {
             <Consumer>
                 {(context) => (
                     <section className = { Styles.post }>
+                        <span className = { Styles.cross } />
                         <img src = { context.avatar } />
                         <a>
                             {`${context.currentUserFirstName} ${
@@ -36,7 +37,12 @@ export default class Post extends Component {
                             {moment.unix(created).format("MMMM D h:mm:ss a")}
                         </time>
                         <p>{comment}</p>
-                        <Like _likePost = { _likePost } id = { id } likes = { likes } { ...context } />
+                        <Like
+                            _likePost = { _likePost }
+                            id = { id }
+                            likes = { likes }
+                            { ...context }
+                        />
                     </section>
                 )}
             </Consumer>
