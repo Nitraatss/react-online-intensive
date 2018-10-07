@@ -1,10 +1,10 @@
 //Core
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 //Components
-import { Consumer } from 'components/HOC/withProfile';
+import { Consumer } from "components/HOC/withProfile";
 
-import Styles from './styles.m.css';
+import Styles from "./styles.m.css";
 
 export default class StatusBar extends Component {
     render () {
@@ -14,13 +14,9 @@ export default class StatusBar extends Component {
                     <section className = { Styles.statusBar }>
                         <button>
                             <img src = { context.avatar } />
-                            <span>
-                                { `${context.currentUserFirstName}` }
-                            </span>
+                            <span>{`${context.currentUserFirstName}`}</span>
                             &nbsp;
-                            <span>
-                                { `${context.currentUserLastName}` }
-                            </span>
+                            <span>{`${context.currentUserLastName}`}</span>
                         </button>
                     </section>
                 )}
