@@ -44,19 +44,11 @@ class Feed extends Component {
 
         await delay(1200);
 
-        const updatedPosts = this.state.posts;
+        const updatedPosts = this.state.posts.filter(post => post.id !== id);
 
-        const deletablePostIndex = updatedPosts.findIndex((post) => {
-            return post.id === id;
+        this.setState({
+            posts: updatedPosts,
         });
-
-        if (deletablePostIndex > -1) {
-            updatedPosts.splice(deletablePostIndex, 1);
-
-            this.setState({
-                posts: updatedPosts,
-            });
-        }
 
         this._changeSpinnerState(false);
     };
