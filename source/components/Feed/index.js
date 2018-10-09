@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import moment from "moment";
 
 // Components
+import { withProfile } from "components/HOC/withProfile";
 import Composer from "components/Composer";
 import Post from "components/Post";
 import StatusBar from "components/StatusBar";
@@ -12,16 +13,8 @@ import Spinner from "components/Spinner";
 import Styles from "./styles.m.css";
 import { getUniqueID, delay } from "instruments";
 
-export default class Feed extends Component {
-    constructor () {
-        super();
-
-        this._createPost = this._createPost.bind(this);
-        this._changeSpinnerState = this._changeSpinnerState.bind(this);
-        this._likePost = this._likePost.bind(this);
-        this._deletePost = this._deletePost.bind(this);
-    }
-
+@withProfile
+class Feed extends Component {
     state = {
         spinnerState: false,
         posts:        [
@@ -40,35 +33,27 @@ export default class Feed extends Component {
         ],
     };
 
-    _changeSpinnerState (state) {
+    _changeSpinnerState = (state) => {
         this.setState({
             spinnerState: state,
         });
-    }
+    };
 
-    async _deletePost (id) {
+    _deletePost = async (id) => {
         this._changeSpinnerState(true);
 
         await delay(1200);
 
-        const updatedPosts = this.state.posts;
+        const updatedPosts = this.state.posts.filter(post => post.id !== id);
 
-        const deletablePostIndex = updatedPosts.findIndex((post) => {
-            return post.id === id;
+        this.setState({
+            posts: updatedPosts,
         });
 
-        if (deletablePostIndex > -1) {
-            updatedPosts.splice(deletablePostIndex, 1);
-
-            this.setState({
-                posts: updatedPosts,
-            });
-        }
-
         this._changeSpinnerState(false);
-    }
+    };
 
-    async _createPost (comment) {
+    _createPost = async (comment) => {
         this._changeSpinnerState(true);
 
         const post = {
@@ -85,9 +70,9 @@ export default class Feed extends Component {
         }));
 
         this._changeSpinnerState(false);
-    }
+    };
 
-    async _likePost (id) {
+    _likePost = async (id) => {
         const { currentUserFirstName, currentUserLastName } = this.props;
 
         this._changeSpinnerState(true);
@@ -116,7 +101,7 @@ export default class Feed extends Component {
         });
 
         this._changeSpinnerState(false);
-    }
+    };
 
     render () {
         const { posts, spinnerState } = this.state;
@@ -142,3 +127,5 @@ export default class Feed extends Component {
         );
     }
 }
+
+export default withProfile(Feed);
