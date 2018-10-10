@@ -11,8 +11,8 @@ import avatar from "theme/assets/gwen";
 
 const options = {
     avatar,
-    currentUserFirstName: "Gwen",
-    currentUserLastName:  "Stacy",
+    currentUserFirstName: "Василий",
+    currentUserLastName:  "Шубин",
 };
 
 @hot(module)
