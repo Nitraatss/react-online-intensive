@@ -10,7 +10,6 @@ import Like from "components/Like";
 //Instruments
 import Styles from "./styles.m.css";
 
-@withProfile
 class Post extends Component {
     static propTypes = {
         comment:     string.isRequired,
