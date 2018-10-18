@@ -48,7 +48,6 @@ class Feed extends Component {
         });
 
         socket.on("remove", (postJSON) => {
-            console.log(postJSON);
             const { data: removedPost, meta } = JSON.parse(postJSON);
 
             if (
@@ -139,8 +138,6 @@ class Feed extends Component {
 
         const { data: post } = await response.json();
 
-        await delay(1200);
-
         this.setState(({ posts }) => ({
             posts: [post, ...posts],
         }));
@@ -176,6 +173,14 @@ class Feed extends Component {
             { opacity: 0, rotationX: 50 },
             { opacity: 1, rotationX: 0 }
         );
+    };
+
+    _animatePostmanEnter = (postman) => {
+        fromTo(postman, 1, { opacity: 0, x: 100 }, { opacity: 1, x: 0 });
+    };
+
+    _animatePostmanLeaving = (postman) => {
+        fromTo(postman, 1, { opacity: 1, x: 0 }, { opacity: 0, x: 100 });
     };
 
     render () {
@@ -217,7 +222,14 @@ class Feed extends Component {
                     timeout = { 1000 }>
                     <Composer _createPost = { this._createPost } />
                 </Transition>
+                <Transition
+                    appear
+                    in
+                    onEnter = { this._animatePostmanEnter }
+                    onEntered = { this._animatePostmanLeaving }
+                    timeout = { 3000 }>
                 <Postman />
+                </Transition>
                 <TransitionGroup>{postsJSX}</TransitionGroup>
             </section>
         );
