@@ -228,7 +228,7 @@ class Feed extends Component {
                     onEnter = { this._animatePostmanEnter }
                     onEntered = { this._animatePostmanLeaving }
                     timeout = { 3000 }>
-                <Postman />
+                    <Postman />
                 </Transition>
                 <TransitionGroup>{postsJSX}</TransitionGroup>
             </section>
