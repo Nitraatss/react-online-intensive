@@ -1,6 +1,10 @@
 //Core
 import React, { Component } from "react";
-import { Transition } from "react-transition-group";
+import {
+    Transition,
+    CSSTransition,
+    TransitionGroup
+} from "react-transition-group";
 import { fromTo } from "gsap";
 
 // Components
@@ -45,7 +49,6 @@ class Feed extends Component {
         });
 
         socket.on("remove", (postJSON) => {
-            console.log(postJSON);
             const { data: removedPost, meta } = JSON.parse(postJSON);
 
             if (
@@ -136,8 +139,6 @@ class Feed extends Component {
 
         const { data: post } = await response.json();
 
-        await delay(1200);
-
         this.setState(({ posts }) => ({
             posts: [post, ...posts],
         }));
@@ -175,19 +176,39 @@ class Feed extends Component {
         );
     };
 
+    _animatePostmanEnter = (postman) => {
+        fromTo(postman, 1, { opacity: 0, x: 100 }, { opacity: 1, x: 0 });
+    };
+
+    _animatePostmanLeaving = (postman) => {
+        fromTo(postman, 1, { opacity: 1, x: 0 }, { opacity: 0, x: 100 });
+    };
+
     render () {
         const { posts, spinnerState } = this.state;
 
         const postsJSX = posts.map((post) => {
             return (
-                <Catcher>
-                    <Post
-                        key = { post.id }
-                        { ...post }
-                        _deletePost = { this._deletePost }
-                        _likePost = { this._likePost }
-                    />
-                </Catcher>
+                <CSSTransition
+                    classNames = { {
+                        enter:       Styles.postInStart,
+                        enterActive: Styles.postInEnd,
+                        exit:        Styles.postOutStart,
+                        exitActive:  Styles.postOutEnd,
+                    } }
+                    key = { post.id }
+                    timeout = { {
+                        enter: 500,
+                        exit:  400,
+                    } }>
+                    <Catcher>
+                        <Post
+                            { ...post }
+                            _deletePost = { this._deletePost }
+                            _likePost = { this._likePost }
+                        />
+                    </Catcher>
+                </CSSTransition>
             );
         });
 
