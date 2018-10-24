@@ -202,9 +202,16 @@ class Feed extends Component {
                     timeout = { 1000 }>
                     <Composer _createPost = { this._createPost } />
                 </Transition>
-                <Postman />
+                <Transition
+                    appear
+                    in
+                    onEnter = { this._animatePostmanEnter }
+                    onEntered = { this._animatePostmanLeaving }
+                    timeout = { 3000 }>
+                    <Postman />
+                </Transition>
+                <TransitionGroup>{postsJSX}</TransitionGroup>
                 <Counter count = { posts.length } />
-                {postsJSX}
             </section>
         );
     }
