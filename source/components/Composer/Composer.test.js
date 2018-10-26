@@ -99,6 +99,13 @@ describe("Composer component", () => {
         expect(result.state()).toEqual(initialState);
     });
 
+    test("should submit form on input click", () => {
+        result.find("input").simulate("click");
+
+        expect(_submitCommentSpy).toHaveBeenCalledTimes(1);
+        expect(result.state()).toEqual(initialState);
+    });
+
     test("should handle form submit on Enter key press", () => {
         result.find("form").simulate("keyDown", {
             target: {
