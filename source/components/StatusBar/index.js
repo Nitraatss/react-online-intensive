@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Transition } from "react-transition-group";
 import { fromTo } from "gsap";
 import cx from "classnames";
+import { Link } from "react-router-dom";
 
 //Components
 import { withProfile } from "components/HOC/withProfile";
@@ -39,6 +40,10 @@ class StatusBar extends Component {
         fromTo(composer, 1, { opacity: 0 }, { opacity: 1 });
     };
 
+    _logOutSite = () => {
+        this.props._logOutSite();
+    };
+
     render () {
         const {
             avatar,
@@ -66,11 +71,13 @@ class StatusBar extends Component {
                         <div>{statusMessage}</div>
                         <span />
                     </div>
-                    <button>
+                    <Link to = '/profile'>
                         <img src = { avatar } />
                         <span>{`${currentUserFirstName}`}</span>
-                        &nbsp;
-                        <span>{`${currentUserLastName}`}</span>
+                    </Link>
+                    <Link to = '/feed'>Feed</Link>
+                    <button onClick = { this._logOutSite } type = 'button'>
+                        Logout
                     </button>
                 </section>
             </Transition>
