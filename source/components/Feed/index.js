@@ -231,8 +231,8 @@ class Feed extends Component {
                     timeout = { 3000 }>
                     <Postman />
                 </Transition>
-                <TransitionGroup>{postsJSX}</TransitionGroup>
                 <Counter count = { posts.length } />
+                <TransitionGroup>{postsJSX}</TransitionGroup>
             </section>
         );
     }
